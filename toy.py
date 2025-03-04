@@ -1,24 +1,46 @@
 
-position = 0  
+position_x = 0  
+position_y = 0 
 direction = "forward"  
 
 
+MAX_X = 500
+MAX_Y = 700
+MIN_X = 0
+MIN_Y = 0
+
+
 def move_robot(command, steps):
-    global position, direction
+    global position_x, position_y, direction
+
     if command == "forward":
-        position += steps
-        direction = "forward"
-        print(f"Robot moved {steps} steps forward. Current position: {position}")
+        if position_y + steps <= MAX_Y:
+            position_y += steps
+            direction = "forward"
+            print(f"Robot moved {steps} steps forward. Current position: ({position_x}, {position_y})")
+        else:
+            print(f"Cannot move forward. Y position exceeds the limit of {MAX_Y}.")
     elif command == "back":
-        position -= steps
-        direction = "back"
-        print(f"Robot moved {steps} steps backward. Current position: {position}")
+        if position_y - steps >= MIN_Y:
+            position_y -= steps
+            direction = "back"
+            print(f"Robot moved {steps} steps backward. Current position: ({position_x}, {position_y})")
+        else:
+            print(f"Cannot move backward. Y position is at the minimum limit of {MIN_Y}.")
     elif command == "right":
-        direction = "right"
-        print("Robot turned right.")
+        if position_x + steps <= MAX_X:
+            position_x += steps
+            direction = "right"
+            print(f"Robot moved {steps} steps right. Current position: ({position_x}, {position_y})")
+        else:
+            print(f"Cannot move right. X position exceeds the limit of {MAX_X}.")
     elif command == "left":
-        direction = "left"
-        print("Robot turned left.")
+        if position_x - steps >= MIN_X:
+            position_x -= steps
+            direction = "left"
+            print(f"Robot moved {steps} steps left. Current position: ({position_x}, {position_y})")
+        else:
+            print(f"Cannot move left. X position is at the minimum limit of {MIN_X}.")
     else:
         print("Please enter a valid command!")
 
@@ -35,7 +57,7 @@ while True:
             try:
                 steps = int(input(f"Enter steps to move {command}: "))
                 if steps > 0:
-                    break  
+                    break 
                 else:
                     print("Please enter a positive number of steps.")
             except ValueError:
@@ -43,6 +65,7 @@ while True:
         
         move_robot(command, steps)
     elif command in ["right", "left"]:
-        move_robot(command, 0)  
+        
+        move_robot(command, 0)
     else:
         print("Please enter a valid command!")

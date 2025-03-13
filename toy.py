@@ -1,34 +1,35 @@
+# Robot position and boundaries
 position_x = 0  
-position_y = 0 
-direction = "forward"  
+position_y = 0  
 
 MAX_X = 500
 MAX_Y = 700
 MIN_X = 0
 MIN_Y = 0
 
+# Direction mapping for movement
+DIRECTION_MAP = {
+    "forward": (0, 1),
+    "back": (0, -1),
+    "right": (1, 0),
+    "left": (-1, 0)
+}
+
 def is_within_bounds(new_x, new_y):
-    """Checks if the new position is within allowed boundaries."""
+    """Checks if the new position is within the allowed boundaries."""
     return MIN_X <= new_x <= MAX_X and MIN_Y <= new_y <= MAX_Y
 
-def move_robot(command, steps):
-    """Moves the robot in the given direction while enforcing boundary constraints."""
-    global position_x, position_y, direction
-    
-    movement = {
-        "forward": (0, steps),
-        "back": (0, -steps),
-        "right": (steps, 0),
-        "left": (-steps, 0),
-    }
+def move_robot(command, steps=0):
+    """Moves the robot based on the command and ensures it stays within bounds."""
+    global position_x, position_y
 
-    if command in movement:
-        new_x = position_x + movement[command][0]
-        new_y = position_y + movement[command][1]
+    if command in DIRECTION_MAP:
+        dx, dy = DIRECTION_MAP[command]
+        new_x = position_x + dx * steps
+        new_y = position_y + dy * steps
 
         if is_within_bounds(new_x, new_y):
             position_x, position_y = new_x, new_y
-            direction = command
             print(f"Robot moved {steps} steps {command}. Current position: ({position_x}, {position_y})")
         else:
             print(f"Cannot move {command}. Movement would exceed boundaries: X({MIN_X}-{MAX_X}), Y({MIN_Y}-{MAX_Y}).")

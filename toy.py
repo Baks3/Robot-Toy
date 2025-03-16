@@ -1,4 +1,3 @@
-# Robot position and boundaries
 position_x = 0  
 position_y = 0  
 
@@ -7,7 +6,6 @@ MAX_Y = 700
 MIN_X = 0
 MIN_Y = 0
 
-# Direction mapping for movement
 DIRECTION_MAP = {
     "forward": (0, 1),
     "back": (0, -1),

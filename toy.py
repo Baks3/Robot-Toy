@@ -1,9 +1,8 @@
-# toy.py
 
 position_x = 0
 position_y = 0
-UNDO_LIMIT = 5  # Limit the number of undos
-position_history = []  # Stack for tracking move history (limited to UNDO_LIMIT) # Stack for tracking move history
+UNDO_LIMIT = 5  
+position_history = [] 
 
 MAX_X = 500
 MAX_Y = 700
@@ -32,9 +31,9 @@ def move_robot(command, steps=0):
 
         if is_within_bounds(new_x, new_y):
             position_history.append((position_x, position_y))
-            # Enforce UNDO_LIMIT
+        
             if len(position_history) > UNDO_LIMIT:
-                position_history.pop(0)  # Remove the oldest entry
+                position_history.pop(0)  
 
             position_x, position_y = new_x, new_y
             print(f"Robot moved {steps} steps {command}. Current position: ({position_x}, {position_y})")
@@ -50,5 +49,6 @@ def undo_move():
     if position_history:
         position_x, position_y = position_history.pop()
         print(f"Undo successful. Current position: ({position_x}, {position_y})")
+        print(f"Undo history: {len(position_history)}/{UNDO_LIMIT}")
     else:
         print("No moves to undo.")

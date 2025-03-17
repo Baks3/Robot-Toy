@@ -1,3 +1,4 @@
+# main.py
 import toy
 
 def get_steps():
@@ -13,22 +14,23 @@ def get_steps():
 
 def handle_movement(command):
     """Handles robot movement based on user input."""
-    steps = get_steps() if command in ["forward", "back"] else 0
+    steps = get_steps()
     toy.move_robot(command, steps)
 
 def main():
     """Main loop for robot control."""
     while True:
-        command = input("Enter command (forward, back, right, left, or exit to quit): ").strip().lower()
+        command = input("Enter command (forward, back, right, left, undo, or exit to quit): ").strip().lower()
 
         if command == "exit":
             print("Exiting the robot control program.")
             break
-
-        if command in ["forward", "back", "right", "left"]:
+        elif command in ["forward", "back", "right", "left"]:
             handle_movement(command)
+        elif command == "undo":
+            toy.undo_move()
         else:
-            print("Invalid command! Please enter 'forward', 'back', 'right', or 'left'.")
+            print("Invalid command! Please enter 'forward', 'back', 'right', 'left', 'undo', or 'exit'.")
 
 if __name__ == "__main__":
     main()

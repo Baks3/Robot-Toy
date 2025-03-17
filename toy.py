@@ -2,7 +2,8 @@
 
 position_x = 0
 position_y = 0
-position_history = []  # Stack for tracking move history
+UNDO_LIMIT = 5  # Limit the number of undos
+position_history = []  # Stack for tracking move history (limited to UNDO_LIMIT) # Stack for tracking move history
 
 MAX_X = 500
 MAX_Y = 700
@@ -30,7 +31,11 @@ def move_robot(command, steps=0):
         new_y = position_y + dy * steps
 
         if is_within_bounds(new_x, new_y):
-            position_history.append((position_x, position_y))  # Save current position
+            position_history.append((position_x, position_y))
+            # Enforce UNDO_LIMIT
+            if len(position_history) > UNDO_LIMIT:
+                position_history.pop(0)  # Remove the oldest entry
+
             position_x, position_y = new_x, new_y
             print(f"Robot moved {steps} steps {command}. Current position: ({position_x}, {position_y})")
         else:

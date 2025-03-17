@@ -23,7 +23,7 @@ def main():
         command = input("Enter command (forward, back, right, left, undo, or exit to quit): ").strip().lower()
 
         if command == "exit":
-            print("Exiting the robot control program.")
+            print("Exiting the robot control program...")
             break
         elif command in ["forward", "back", "right", "left"]:
             handle_movement(command)

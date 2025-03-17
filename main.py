@@ -1,4 +1,3 @@
-# main.py
 import toy
 
 def get_steps():
